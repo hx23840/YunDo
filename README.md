@@ -127,6 +127,6 @@ We welcome any form of contribution, including but not limited to:
 This project is licensed under the [GNU General Public License v3.0](./LICENSE).
 
 ## Contact Us
-If you have any questions or suggestions, please submit them via [issues](./issues), or [email](mailto:peter@lyrai.app) our development team.
+If you have any questions or suggestions, please submit them via [issues](https://github.com/hx23840/YunDo/issues), or [email](mailto:peter@lyrai.app) our development team.
 
 Thank you for your attention and support! Let's build a smarter and more open future together.

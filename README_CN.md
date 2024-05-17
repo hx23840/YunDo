@@ -126,6 +126,6 @@ python main.py
 本项目采用 [GNU 通用公共许可证 v3.0](./LICENSE) 开源协议。
 
 ## 联系我们
-如果您有任何问题或建议，请通过 [issues](./issues) 提交，或者[发送邮件](mailto:peter@lyrai.app)至我们的开发团队
+如果您有任何问题或建议，请通过 [issues](https://github.com/hx23840/YunDo/issues) 提交，或者[发送邮件](mailto:peter@lyrai.app)至我们的开发团队
 
 感谢您的关注和支持！一起构建更加智能和开放的未来。
