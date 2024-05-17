@@ -6,6 +6,38 @@ Welcome to the **YunDo** project GitHub page! YunDo is an open-source intelligen
 
 ## Project Content
 
+### Simple Flow Chart
+```plaintext
++------------------+                                  +-----------------+
+|    Client (ESP32)  |                                  |     Server        |
+|                  |                                  |                 |
+| +--------------+ |                                  | +-------------+ |
+| | Audio Capture | |                                  | | MQTT Broker | |
+| +--------------+ |                                  | +------+------+ |
+|        |          |                                  |        ^        |
+|        v          |                                  |        |        |
+| +--------------+  |                                  | +------+------| |
+| | MQTT Publish  |  +------------------------------->  | | Receive Audio| |
+| +--------------+  |                                  | +------+------| |
+|                  |                                  +------+------| |
+|                  |                                  |       v        |
+|                  |                                  | +-------------+ |
+|                  |                                  | | Speech-to-Text| <----> Azure Speech-to-Text API
+|                  |                                  | +-------------+ |
+|                  |                                  |       v        |
+|                  |                                  | +-------------+ |
+|                  |                                  | |    LLM Model   | <----> Dify.ai
+|                  |                                  | +-------------+ |
+|                  |                                  |       v        |
+|                  |                                  | +-------------+ |
+|                  |                                  | | Text-to-Speech| <----> Azure Text-to-Speech API
+|                  |                                  | +-------------+ |
+|                  v                                  |       v        |
+| +--------------+  <---------------------------------+  | +-------------+ |
+| | Audio Playback|                                     | | MQTT Publish  |
+| +--------------+                                      | +-------------+ |
++------------------+                                   +-----------------+
+```
 ### Hardware Overview
 - **Complete Hardware with Enclosure**:
 
