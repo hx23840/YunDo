@@ -59,7 +59,7 @@ async def main():
             #network_manager.monitor()  # Optional: Monitor network connectivity
         )
     except Exception as e:
-        print("发现异常，正在重启:", e)
+        print("Anomaly detected, restarting now:", e)
         # Play restart sound
         play_audio_from_file(file_path="res/restart.wav", sample_rate_in_hz=16000, sample_size_in_bits=16, mono=False)
 
