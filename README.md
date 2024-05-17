@@ -69,7 +69,23 @@ Welcome to the **YunDo** project GitHub page! YunDo is an open-source intelligen
 git clone https://github.com/hx23840/YunDo.git
 ```
 2. Assemble the development board and flash the firmware according to the documentation.
+- Flashing MicroPython onto ESP32
+  - Download the MicroPython Firmware:
+     - Visit the MicroPython downloads page for ESP32: [MicroPython for ESP32](https://micropython.org/download/ESP32_GENERIC/)
+     - Download the latest firmware binary file for ESP32.
 
+  - Flash Firmware to ESP32:
+     - Follow the instructions on the MicroPython site to flash the firmware onto your ESP32 device.
+
+- Setting Up Thonny IDE 
+  - Install Thonny:
+     - Download and install Thonny IDE from [Thonny's website](https://thonny.org).
+   
+- Copy Firmware Files:
+   - Open Thonny, and connect your ESP32 device via USB.
+   - Use Thonny's file manager to navigate to the firmware folder.
+   - Copy the MicroPython code from the firmware folder on your computer to the ESP32.
+  
 3. Server Configuration
 
 - Deploy the EMQX Broker:

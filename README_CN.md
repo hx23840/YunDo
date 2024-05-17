@@ -69,6 +69,22 @@ git clone https://github.com/hx23840/YunDo.git
 ```
 
 2. 按照文档组装开发板并烧录固件。
+- 给ESP32刷入MicroPython固件
+  - 下载MicroPython固件：
+    - 访问ESP32的MicroPython下载页面：[MicroPython for ESP32](https://micropython.org/download/ESP32_GENERIC/)
+    - 下载ESP32的最新固件二进制文件。
+
+  - 将固件刷入ESP32：
+    - 按照MicroPython网站上的说明，将固件刷入您的ESP32设备。
+
+- 设置Thonny IDE
+  - 安装Thonny：
+    - 从[Thonny官网](https://thonny.org)下载并安装Thonny IDE。
+   
+  - 拷贝固件文件：
+    - 打开Thonny，并通过USB连接您的ESP32设备。
+    - 使用Thonny的文件管理器导航到固件文件夹。
+    - 将计算机上的固件文件夹中的MicroPython代码复制到ESP32中。
 
 3. 服务端配置
 
