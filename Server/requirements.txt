@@ -1,0 +1,4 @@
+dify_client
+azure-cognitiveservices-speech
+python-dotenv
+paho-mqtt
