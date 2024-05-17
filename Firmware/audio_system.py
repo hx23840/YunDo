@@ -6,6 +6,7 @@ import gc
 import uasyncio as asyncio
 import utime
 
+
 class AudioSystem:
     def __init__(self, button_pin, mqtt_mic_topic, mqtt_audio_topic, client, sample_rate_in_hz_input=16000,
                  sample_rate_in_hz_output=16000):
@@ -34,11 +35,11 @@ class AudioSystem:
 
     def start_or_stop_recording(self, pin):
         utime.sleep_ms(100)  # Debounce delay
-        
+
         if pin.value() == 0:  # If button pressed
             # 资源回收
             gc.collect()
-            
+
             self.is_recording = True
             self.record_size = 0
 
@@ -50,12 +51,12 @@ class AudioSystem:
         elif pin.value() == 1:  # If button released
             self.is_recording = False
             self.client.publish(self.mqtt_mic_topic, "END", qos=0)
-            
+
             self.audio_out = init_audio_output(mono=True, sample_rate_in_hz=self.sample_rate_in_hz_output)
 
             if self.audio_in:
                 cleanup_audio_input(self.audio_in)
-                
+
             # 资源回收
             gc.collect()
 
@@ -78,7 +79,6 @@ class AudioSystem:
             except Exception as e:
                 print(f"Error collecting microphone data: {e}")
                 await asyncio.sleep_ms(10)
-
 
     def on_audio_data(self, topic, msg):
         if topic.decode() == self.mqtt_audio_topic:
