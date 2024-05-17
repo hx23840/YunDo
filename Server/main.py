@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 import azure.cognitiveservices.speech as speechsdk
 
-from azureSpeechService import AzureSpeechService
-from difyChatClient import DifyChatClient
-from mqttService import MQTTService
-from streamProcessor import StreamProcessor
+from azure_speech_service import AzureSpeechService
+from dify_chat_client import DifyChatClient
+from mqtt_service import MQTTService
+from stream_processor import StreamProcessor
 
 load_dotenv()
 

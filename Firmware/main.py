@@ -1,9 +1,9 @@
 import uasyncio as asyncio
 import utime
 
-from audioSystem import AudioSystem
-from mqttClientWrapper import MQTTClientWrapper
-from networkManager import NetworkManager
+from audio_system import AudioSystem
+from mqtt_client_wrapper import MQTTClientWrapper
+from network_manager import NetworkManager
 from i2s_audio import play_audio_from_file
 import machine
 
