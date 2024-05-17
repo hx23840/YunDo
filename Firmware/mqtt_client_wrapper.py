@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '/lib')
+
 from umqtt.robust import MQTTClient
 from machine import Pin, WDT, I2S
 import ubinascii
