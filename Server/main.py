@@ -1,4 +1,5 @@
 import os
+import re
 import threading
 import queue
 
@@ -95,7 +96,7 @@ class Application:
                 complete_audio_data = b''.join(userdata['audio_chunks'])
                 recognized_text = self.azure_speech_service.recognize_speech_from_bytes(complete_audio_data)
                 if recognized_text:
-                    if "reset" in recognized_text:
+                    if re.search(r'\breset\b', recognized_text, re.IGNORECASE):
                         userdata['conversation_id'] = ""
 
                     self.dify_chat_client.handle_dify_dialog(recognized_text, userdata, self.stream_processor)
