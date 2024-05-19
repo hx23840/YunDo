@@ -95,6 +95,9 @@ class Application:
                 complete_audio_data = b''.join(userdata['audio_chunks'])
                 recognized_text = self.azure_speech_service.recognize_speech_from_bytes(complete_audio_data)
                 if recognized_text:
+                    if "reset" in recognized_text:
+                        userdata['conversation_id'] = ""
+
                     self.dify_chat_client.handle_dify_dialog(recognized_text, userdata, self.stream_processor)
 
             userdata['audio_chunks'] = []
