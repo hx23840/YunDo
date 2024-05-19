@@ -37,11 +37,13 @@ class MQTTClientWrapper:
 
     def connect(self):
         # Connects to the MQTT broker and subscribes to the audio topic
-        self.client.DEBUG = False
+        self.client.DEBUG = True
 
-        if not self.client.connect(clean_session=True):
-            print("Initializing subscriptions")
-            self.client.subscribe(self.mqtt_audio_topic)
+        self.client.connect(clean_session=True)
+        
+        print("Initializing subscriptions")
+        self.client.add_subscription(self.mqtt_audio_topic)
+        
         print("Starting to listen for MQTT messages...")
 
         # Start led
