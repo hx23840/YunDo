@@ -18,6 +18,9 @@ class MQTTService:
                                   userdata={'audio_chunks': [], 'conversation_id': None})
         self.client.username_pw_set(self.MQTT_USER, self.MQTT_PASSWORD)
 
+    def get_client_id(self):
+        return self.MQTT_CLIENT_ID
+
     def publish_data_to_device(self, topic, data):
         if data:
             chunk_size = 20000

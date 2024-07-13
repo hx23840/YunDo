@@ -43,6 +43,8 @@ class Application:
             base_url=os.getenv('DIFY_BASE_URL')
         )
 
+        self.conversation_ids = {}  # 用于存储每个设备的conversation_id
+
         self.stream_processor = StreamProcessor(self.azure_speech_service)
 
     def main(self):
@@ -67,8 +69,23 @@ class Application:
 
     def handle_recognized_text(self, recognized_text):
         if recognized_text:
-            print(f"Recognized text: {recognized_text}")
-            self.dify_chat_client.handle_dify_dialog(recognized_text, {'conversation_id': None}, self.stream_processor)
+            client_id = self.mqtt_service.get_client_id()
+            print(f"Recognized text from client {client_id}: {recognized_text}")
+            conversation_id = self.conversation_ids.get(client_id)
+            new_conversation_id = self.dify_chat_client.handle_dify_dialog(
+                recognized_text,
+                conversation_id,
+                self.stream_processor
+            )
+            if new_conversation_id:
+                self.conversation_ids[client_id] = new_conversation_id
+                print(f"Updated conversation_id for client {client_id}: {new_conversation_id}")
+
+    def reset_conversation(self):
+        client_id = self.mqtt_service.get_client_id()
+        if client_id in self.conversation_ids:
+            del self.conversation_ids[client_id]
+            print(f"Conversation reset for client {client_id}")
 
     def mqtt_sender(self):
         while True:
