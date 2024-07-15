@@ -26,6 +26,9 @@ class AzureSpeechService:
         self.tts_queue = Queue()
         self.tts_thread = threading.Thread(target=self.tts_worker, daemon=True)
         self.tts_thread.start()
+        self.tts_buffer = b""
+        self.tts_buffer_size = 32000  # 大约2秒的音频数据 (16kHz, 16-bit)
+        self.tts_buffer_lock = threading.Lock()
 
     def create_speech_config(self, recognition_language, synthesis_voice_name, output_format):
         speech_config = speechsdk.SpeechConfig(subscription=self.speech_key, region=self.service_region)
@@ -63,6 +66,7 @@ class AzureSpeechService:
             try:
                 self.push_stream.write(audio_chunk)
                 self.last_audio_time = time.time()
+                print(f"Successfully wrote {len(audio_chunk)} bytes to the push stream")
 
                 if not self.is_recognizing:
                     self.start_continuous_recognition()
@@ -126,6 +130,7 @@ class AzureSpeechService:
         audio_config = speechsdk.audio.AudioOutputConfig(stream=stream)
         synthesizer = speechsdk.SpeechSynthesizer(speech_config=self.speech_config, audio_config=audio_config)
         synthesizer.synthesizing.connect(self.synthesis_callback)
+        synthesizer.synthesis_completed.connect(self.on_synthesis_completed)
         print("Synthesizer setup complete")
         return synthesizer
 
@@ -133,9 +138,22 @@ class AzureSpeechService:
         if evt.result.reason == speechsdk.ResultReason.SynthesizingAudio:
             audio_data = evt.result.audio_data
             if audio_data:
-                self.data_queue.put((self.mqtt_audio_topic, audio_data))
+                with self.tts_buffer_lock:
+                    self.tts_buffer += audio_data
+                    if len(self.tts_buffer) >= self.tts_buffer_size:
+                        print(f"Sending {len(self.tts_buffer)} bytes of audio data to MQTT queue")
+                        self.data_queue.put((self.mqtt_audio_topic, self.tts_buffer))
+                        self.tts_buffer = b""
             else:
                 print("No audio data received in synthesis event")
+
+    def on_synthesis_completed(self, evt):
+        with self.tts_buffer_lock:
+            if self.tts_buffer:
+                print(
+                    f"Synthesis completed. Sending remaining {len(self.tts_buffer)} bytes of audio data to MQTT queue")
+                self.data_queue.put((self.mqtt_audio_topic, self.tts_buffer))
+                self.tts_buffer = b""
 
     def text_to_speech(self, text):
         print(f"Queueing text for synthesis: {text}")
