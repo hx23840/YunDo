@@ -17,6 +17,7 @@ class AudioSystem:
         self.mqtt_mic_topic = mqtt_mic_topic
         self.mqtt_audio_topic = mqtt_audio_topic
         self.client = client
+
         # Initialize audio input and output with different sample rates
         self.audio_in = self.init_audio_input(sample_rate_in_hz=sample_rate_in_hz_input)
         self.audio_out = self.init_audio_output(sample_rate_in_hz=sample_rate_in_hz_output)
@@ -67,6 +68,8 @@ class AudioSystem:
                     num_bytes_read_from_mic = self.audio_in.readinto(self.mic_samples_mv)
                     if num_bytes_read_from_mic > 0:
                         self.client.publish(self.mqtt_mic_topic, self.mic_samples[:num_bytes_read_from_mic], qos=0)
+                        await asyncio.sleep_ms(5)
+                        print("Audio data published")
                 await asyncio.sleep_ms(5)
             except Exception as e:
                 print(f"Error collecting microphone data: {e}")
