@@ -23,7 +23,7 @@ class MQTTService:
 
     def publish_data_to_device(self, topic, data):
         if data:
-            chunk_size = 20000
+            chunk_size = 10000
             for start in range(0, len(data), chunk_size):
                 end = start + chunk_size
                 publish.single(topic, data[start:end], hostname=self.MQTT_BROKER, qos=0,
