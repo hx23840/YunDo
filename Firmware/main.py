@@ -54,7 +54,6 @@ async def main():
 
         await asyncio.gather(
             audio_system.record_audio(),
-            audio_system.play_audio_queue(),
             mqtt_client.listen(),
             #network_manager.monitor()  # Optional: Monitor network connectivity
         )
