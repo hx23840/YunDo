@@ -41,7 +41,6 @@
 
 ![Description of image](Docs/Shell-02.png)
 
-![Description of image](Docs/Shell-01.png)
 
 ### 硬件
 - 使用开源项目 [Esp32_VoiceChat_LLMs](https://github.com/MetaWu2077/Esp32_VoiceChat_LLMs)
