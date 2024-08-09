@@ -43,7 +43,6 @@ Welcome to the **YunDo** project GitHub page! YunDo is an open-source intelligen
 
 ![Description of image](Docs/Shell-02.png)
 
-![Description of image](Docs/Shell-01.png)
 
 ### Hardware
 - Based on the open-source project [Esp32_VoiceChat_LLMs](https://github.com/MetaWu2077/Esp32_VoiceChat_LLMs)
